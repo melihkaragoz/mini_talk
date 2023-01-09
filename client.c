@@ -1,67 +1,88 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mkaragoz <mkaragoz@student.42istanbul.c    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/09 18:55:57 by mkaragoz          #+#    #+#             */
+/*   Updated: 2023/01/09 19:14:49 by mkaragoz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <unistd.h>
 #include <signal.h>
 
-int ft_atoi(char *s);
+int		ft_atoi(char *s);
+void	ft_send(int num, int rem, int pid);
 
-void	sendSignal(int n, int pid)
+void	send_signal(int n, int pid)
 {
 	if (n == 1)
 	{
 		kill(pid, SIGUSR2);
 		printf("1 gitti\n");
 	}
-	else if(n == 0)
+	else if (n == 0)
 	{
 		kill(pid, SIGUSR1);
 		printf("0 gitti\n");
 	}
 	else
-	{
 		printf("sıkıntı");
-	}
 	usleep(10);
 }
 
 int	main(int ac, char **av)
 {
+	int		i;
+	int		num;
+	int		rem;
+	int		pid;
+	char	*str;
+
 	if (ac == 3)
 	{
-		int i;
-		int num;
-		int rem;
-		int pid = ft_atoi(av[1]);
-		char *str = av[2];
+		pid = ft_atoi(av[1]);
+		str = av[2];
+		i = -1;
 		printf("server pid: %d\n", pid);
-
-		while (str[i])
+		while (str[++i])
 		{
 			num = 128;
 			rem = (unsigned char)(str)[i];
-			while (num > 0)
-			{
-				sendSignal(rem / num, pid);
-				if (rem >= num)
-					rem = rem - num;
-				num /= 2;
-			}
-			write(1,"\n",1);
-			i++;
+			ft_send(num, rem, pid);
+			write(1, "\n", 1);
 		}
-
 		return (0);
 	}
 }
 
-int ft_atoi(char *s)
+void	ft_send(int num, int rem, int pid)
 {
-	long r;
-	int sign;
+	while (num > 0)
+	{
+		send_signal(rem / num, pid);
+		if (rem >= num)
+			rem = rem - num;
+		num /= 2;
+	}
+}
+
+int	ft_atoi(char *s)
+{
+	long	r;
+	int		sign;
 
 	while (*s == 32 || (*s >= 9 && *s <= 13))
 		s++;
-	sign = (*s == '-') ? -1 : 1;
-	(*s == '-' || *s == '+') ? s++ : s;
+	if (*s == '-')
+		sign = -1;
+	else
+		sign = 1;
+	if (*s == '-' || *s == '+')
+		s++;
 	r = 0;
 	while (*s >= '0' && *s <= '9')
 		r = r * 10 + *s++ - '0';
