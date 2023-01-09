@@ -1,0 +1,2 @@
+1- client'ten server'a veri gönderirken verinin basına client pid'si eklenecek. (int olarak 32bit gonderilecek.)
+2- servera gelen veriden client pid'si parse edilecek. server'dan client'a tekrar mesaj gonderilecek.
