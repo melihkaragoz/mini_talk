@@ -6,14 +6,11 @@
 /*   By: mkaragoz <mkaragoz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:56:04 by mkaragoz          #+#    #+#             */
-/*   Updated: 2023/01/10 15:37:44 by mkaragoz         ###   ########.fr       */
+/*   Updated: 2023/01/10 16:02:13 by mkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-
-int	g_i;
-g_i = 128;
 
 void	ft_putchar(char c)
 {
@@ -31,11 +28,13 @@ void	ft_putstr(char *str)
 
 void	ft_putnbr(int nb)
 {
-	if (nb < 0) {
+	if (nb < 0)
+	{
 		ft_putchar('-');
 		nb = -nb;
 	}
-	if (nb >= 10) {
+	if (nb >= 10)
+	{
 		ft_putnbr(nb / 10);
 		nb = nb % 10;
 	}
@@ -46,6 +45,7 @@ void	ft_putnbr(int nb)
 void	handle(int signum)
 {
 	static char	c = 0;
+	static int 	g_i = 128;
 
 	if (signum == SIGUSR2)
 		c += g_i;
@@ -56,11 +56,6 @@ void	handle(int signum)
 		g_i = 128;
 		c = 0;
 	}
-}
-
-int	*prepare(int sig)
-{
-	return (0);
 }
 
 int	main(void)

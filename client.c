@@ -6,7 +6,7 @@
 /*   By: mkaragoz <mkaragoz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:55:57 by mkaragoz          #+#    #+#             */
-/*   Updated: 2023/01/10 15:50:23 by mkaragoz         ###   ########.fr       */
+/*   Updated: 2023/01/10 16:10:58 by mkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	send_signal(int n, int pid)
 		kill(pid, SIGUSR2);
 	else if (n == 0)
 		kill(pid, SIGUSR1);
-	usleep(100);
+	usleep(50);
 }
 
 int	main(int ac, char **av)

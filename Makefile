@@ -1,8 +1,8 @@
-NAME=mini.a
+SRCS= server.c client.c
 
-SRCS= ft_printf.c ft_printf_utils.c ft_printf_puts.c print_hex.c libft_functions.c ft_itoa.c
+OBJS= server client
 
-OBJS= $(SRCS:.c=.o)
+NAME= $(OBJS)
 
 CC=gcc
 
@@ -10,16 +10,13 @@ RM= rm -rf
 
 CFLAGS= -Wall -Werror -Wextra
 
-all: $(NAME)
-
-$(NAME): $(OBJS)
-	ar rc $(NAME) $(OBJS)
+all: $(OBJS)
 
 clean:
 	$(RM) $(OBJS)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(OBJS)
 
 re: fclean all
 
