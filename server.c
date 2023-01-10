@@ -6,7 +6,7 @@
 /*   By: mkaragoz <mkaragoz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:56:04 by mkaragoz          #+#    #+#             */
-/*   Updated: 2023/01/09 19:16:51 by mkaragoz         ###   ########.fr       */
+/*   Updated: 2023/01/10 13:10:15 by mkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,23 @@ void	bitoa();
 
 void	handle(int signum)
 {
+	static int	i = 128;
+	static char	c = 0;
+
 	if (signum == SIGUSR2)
-		printf("%d\n", 1);
-	else if (signum == SIGUSR1)
-		printf("%d\n", 0);
+		c += i;
+	i /= 2;
+	if (i == 0)
+	{
+		write(1,&c,1);
+		i = 128;
+		c = 0;
+	}
+}
+
+int	*prepare(int sig)
+{
+	return (0);
 }
 
 int	main(void)
