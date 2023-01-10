@@ -1,22 +1,28 @@
-SRCS= server.c client.c
+SERVER= server
 
-OBJS= server client
+CLIENT= client
 
-NAME= $(OBJS)
+NAME= all
 
-CC=gcc
+CC= gcc
+
+CFLAGS= -Wall -Wextra -Werror
 
 RM= rm -rf
 
-CFLAGS= -Wall -Werror -Wextra
+all: $(SERVER) $(CLIENT)
 
-all: $(OBJS)
+$(SERVER):
+	$(CC) $(CFLAGS) server.c -o server
+
+$(CLIENT):
+	$(CC) $(CFLAGS) client.c -o client
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(SERVER) $(CLIENT)
 
 fclean: clean
-	$(RM) $(OBJS)
+	$(RM) $(SERVER) $(CLIENT)
 
 re: fclean all
 
